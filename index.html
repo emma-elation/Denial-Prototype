@@ -73,6 +73,7 @@
     .agent-dot-pulse { width:6px; height:6px; background:#4a5c63; border-radius:50%; animation:agent-pulse 1.2s ease-in-out infinite; display:inline-block; }
     @keyframes agent-spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
     .agent-spinner { border:2px solid #e0e8ec; border-top-color:#0394ce; border-radius:50%; animation:agent-spin 0.8s linear infinite; display:inline-block; flex-shrink:0; box-sizing:border-box; }
+    @keyframes agent-shimmer { 0% { transform:translateX(-150%); } 100% { transform:translateX(340%); } }
   </style>
 </head>
 <body class="h-screen flex flex-col overflow-hidden" style="min-width:1100px; background:#f0f0f0;">
@@ -410,7 +411,7 @@
             </div>
 
             <!-- ── Margaret Holloway — Denied + Appeal Ready ── -->
-            <div class="pa-card" style="border-color:#f0a0a8;">
+            <div class="pa-card">
               <div class="pa-date-col">
                 <span class="text-[12px] font-medium font-['Roboto',sans-serif] text-[#333]">02/28/2026</span>
               </div>
@@ -440,12 +441,6 @@
                 <div class="flex items-center gap-1.5">
                   <svg class="w-[11px] h-[11px] flex-shrink-0" viewBox="0 0 12 14" fill="none"><path d="M7 1H2a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V5L7 1z" stroke="#2a6bbc" stroke-width="1.2"/><path d="M7 1v4h4" stroke="#2a6bbc" stroke-width="1.2"/></svg>
                   <a href="#" onclick="event.preventDefault(); openAgentDialog('holloway');" class="text-[11px] font-semibold text-[#2a6bbc] hover:underline">PA Request — Lisdexamfetamine (Vyvanse) 50mg (AUTH-2024-8834721)</a>
-                </div>
-                <div class="flex items-center gap-2" style="margin-top:2px;">
-                  <button onclick="openAgentDialog('holloway')" style="background:#0394ce; color:white; font-size:11px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:3px; height:22px; padding:0 9px; cursor:pointer; white-space:nowrap; display:inline-flex; align-items:center; gap:5px;">
-                    <svg width="9" height="9" viewBox="0 0 14 14" fill="none"><path d="M7 0.5C7 3.99 4.49 6.5 1 6.5C4.49 6.5 7 9.01 7 12.5C7 9.01 9.51 6.5 13 6.5C9.51 6.5 7 3.99 7 0.5Z" fill="white"/></svg>
-                    Review Agent Appeal
-                  </button>
                 </div>
               </div>
             </div>
@@ -620,7 +615,6 @@
               <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M7 0.5C7 3.99 4.49 6.5 1 6.5C4.49 6.5 7 9.01 7 12.5C7 9.01 9.51 6.5 13 6.5C9.51 6.5 7 3.99 7 0.5Z" fill="#296bbc"/></svg>
               <span style="font-size:11px; font-weight:600; color:#1a4a8a; font-family:'Open Sans',sans-serif; white-space:nowrap;">Prepared by Appeal Agent · 3 min ago</span>
             </div>
-            <button style="margin-left:auto; background:transparent; border:1px solid #cdd7db; border-radius:4px; height:24px; padding:0 10px; font-size:12px; font-weight:600; color:#253a40; font-family:'Open Sans',sans-serif; cursor:pointer; white-space:nowrap;">Edit Draft</button>
           </div>
 
           <!-- Appeal letter body -->
@@ -669,20 +663,29 @@
             </div>
           </div>
 
-          <!-- Evidence Gathered card -->
+          <!-- View Submitted Details accordion -->
           <div style="border:1px solid #e4eaec; border-radius:4px; overflow:hidden;">
-            <div style="background:#f0f3f4; padding:9px 12px; border-bottom:1px solid #e4eaec; display:flex; align-items:center; justify-content:space-between;">
-              <p style="font-size:12px; font-weight:600; color:#253a40; font-family:'Open Sans',sans-serif; margin:0;">Evidence Gathered</p>
-              <div style="display:inline-flex; align-items:center; gap:4px;">
-                <svg width="9" height="9" viewBox="0 0 14 14" fill="none"><path d="M7 0.5C7 3.99 4.49 6.5 1 6.5C4.49 6.5 7 9.01 7 12.5C7 9.01 9.51 6.5 13 6.5C9.51 6.5 7 3.99 7 0.5Z" fill="#296bbc"/></svg>
-                <span style="font-size:10px; font-weight:600; color:#296bbc; font-family:'Open Sans',sans-serif;">Agent</span>
+            <button onclick="toggleAgentSubmittedDetails()" style="width:100%; background:#f0f3f4; border:none; cursor:pointer; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; font-family:'Open Sans',sans-serif;">
+              <span style="font-size:12px; font-weight:600; color:#253a40;">View Submitted Details</span>
+              <svg id="agent-submitted-chevron" width="12" height="8" viewBox="0 0 12 8" fill="none" style="transition:transform 0.2s; flex-shrink:0;"><path d="M1 1.5l5 5 5-5" stroke="#253a40" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div id="agent-submitted-details-body" style="display:none; border-top:1px solid #e4eaec; background:white;">
+              <div style="padding:12px; display:flex; flex-direction:column; gap:8px;">
+                <div style="border:1px solid #e4eaec; border-radius:8px; padding:9px 17px;">
+                  <p style="font-size:14px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0 0 7px;">Additional Notes &amp; Attachments</p>
+                  <p style="font-size:14px; color:#253a40; font-family:'Open Sans',sans-serif; margin:0 0 5px;">Notes: n/a</p>
+                  <p style="font-size:14px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0 0 5px;">Attachments:</p>
+                  <div style="display:flex; flex-direction:column; gap:4px;">
+                    <div style="display:inline-flex; align-items:center; gap:5px; background:#f9fafb; border:1px solid #e4eaec; border-radius:4px; padding:4px 8px; align-self:flex-start;"><svg width="11" height="13" viewBox="0 0 11 13" fill="none"><path d="M6.5 1H2a1 1 0 00-1 1v9a1 1 0 001 1h7a1 1 0 001-1V4.5L6.5 1z" stroke="rgba(0,24,38,0.58)" stroke-width="1.1" stroke-linejoin="round"/><path d="M6.5 1v3.5H10" stroke="rgba(0,24,38,0.58)" stroke-width="1.1" stroke-linejoin="round"/><path d="M3 7h5M3 9h3" stroke="rgba(0,24,38,0.58)" stroke-width="0.9" stroke-linecap="round"/></svg><span style="font-size:11px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif;">ADHD Assessment - 01/15/2026.pdf</span></div>
+                  </div>
+                </div>
+                <div style="border:1px solid #e4eaec; border-radius:8px; padding:9px 17px;"><div style="display:flex; gap:10px; align-items:flex-start;"><span style="font-size:12px; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; flex-shrink:0; min-width:14px; margin-top:2px;">1</span><div><p style="font-size:14px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0 0 3px;">Primary diagnosis for this PA request?</p><p style="font-size:14px; color:#253a40; font-family:'Open Sans',sans-serif; margin:0; line-height:1.5; padding-left:4px;">Attention Deficit Hyperactivity Disorder, Combined Type (F90.2)</p></div></div></div>
+                <div style="border:1px solid #e4eaec; border-radius:8px; padding:9px 17px;"><div style="display:flex; gap:10px; align-items:flex-start;"><span style="font-size:12px; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; flex-shrink:0; min-width:14px; margin-top:2px;">2</span><div><p style="font-size:14px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0 0 3px;">Patient age and weight?</p><p style="font-size:14px; color:#253a40; font-family:'Open Sans',sans-serif; margin:0; line-height:1.5; padding-left:4px;">68 years old, 134 lbs (60.8 kg)</p></div></div></div>
+                <div style="border:1px solid #e4eaec; border-radius:8px; padding:9px 17px;"><div style="display:flex; gap:10px; align-items:flex-start;"><span style="font-size:12px; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; flex-shrink:0; min-width:14px; margin-top:2px;">3</span><div><p style="font-size:14px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0 0 3px;">Has the patient previously trialed methylphenidate (e.g., Ritalin, Concerta)?</p><p style="font-size:14px; color:#253a40; font-family:'Open Sans',sans-serif; margin:0; line-height:1.5; padding-left:4px;">No prior trial of methylphenidate documented</p></div></div></div>
+                <div style="border:1px solid #e4eaec; border-radius:8px; padding:9px 17px;"><div style="display:flex; gap:10px; align-items:flex-start;"><span style="font-size:12px; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; flex-shrink:0; min-width:14px; margin-top:2px;">4</span><div><p style="font-size:14px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0 0 3px;">Has the patient previously trialed mixed amphetamine salts (e.g., Adderall, Mydayis)?</p><p style="font-size:14px; color:#253a40; font-family:'Open Sans',sans-serif; margin:0; line-height:1.5; padding-left:4px;">No prior trial of amphetamine salts documented</p></div></div></div>
+                <div style="border:1px solid #e4eaec; border-radius:8px; padding:9px 17px;"><div style="display:flex; gap:10px; align-items:flex-start;"><span style="font-size:12px; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; flex-shrink:0; min-width:14px; margin-top:2px;">5</span><div><p style="font-size:14px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0 0 3px;">Clinical justification for initiating Lisdexamfetamine (Vyvanse) as first-line stimulant?</p><p style="font-size:14px; color:#253a40; font-family:'Open Sans',sans-serif; margin:0; line-height:1.5; padding-left:4px;">Patient has cardiovascular comorbidities including controlled hypertension. Prescriber recommends Vyvanse due to smoother onset/offset and lower cardiovascular impact relative to immediate-release stimulants. Newly diagnosed adult ADHD requiring consistent, long-acting coverage.</p></div></div></div>
+                <div style="border:1px solid #e4eaec; border-radius:8px; padding:9px 17px;"><div style="display:flex; gap:10px; align-items:flex-start;"><span style="font-size:12px; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; flex-shrink:0; min-width:14px; margin-top:2px;">6</span><div><p style="font-size:14px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0 0 3px;">Is this a new diagnosis or continuation of prior treatment?</p><p style="font-size:14px; color:#253a40; font-family:'Open Sans',sans-serif; margin:0; line-height:1.5; padding-left:4px;">Newly diagnosed in January 2026 following psychiatric evaluation. No prior stimulant therapy.</p></div></div></div>
               </div>
-            </div>
-            <div style="padding:10px 12px; display:flex; flex-direction:column; gap:6px;">
-              <p style="font-size:11px; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0 0 4px;">3 documents from patient chart</p>
-              <div style="display:inline-flex; align-items:center; gap:5px; background:#f9fafb; border:1px solid #e4eaec; border-radius:4px; padding:4px 8px;"><svg width="11" height="13" viewBox="0 0 11 13" fill="none"><path d="M6.5 1H2a1 1 0 00-1 1v9a1 1 0 001 1h7a1 1 0 001-1V4.5L6.5 1z" stroke="rgba(0,24,38,0.58)" stroke-width="1.1" stroke-linejoin="round"/><path d="M6.5 1v3.5H10" stroke="rgba(0,24,38,0.58)" stroke-width="1.1" stroke-linejoin="round"/><path d="M3 7h5M3 9h3" stroke="rgba(0,24,38,0.58)" stroke-width="0.9" stroke-linecap="round"/></svg><span style="font-size:11px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif;">ADHD Assessment - 01/15/2026</span></div>
-              <div style="display:inline-flex; align-items:center; gap:5px; background:#f9fafb; border:1px solid #e4eaec; border-radius:4px; padding:4px 8px;"><svg width="11" height="13" viewBox="0 0 11 13" fill="none"><path d="M6.5 1H2a1 1 0 00-1 1v9a1 1 0 001 1h7a1 1 0 001-1V4.5L6.5 1z" stroke="rgba(0,24,38,0.58)" stroke-width="1.1" stroke-linejoin="round"/><path d="M6.5 1v3.5H10" stroke="rgba(0,24,38,0.58)" stroke-width="1.1" stroke-linejoin="round"/><path d="M3 7h5M3 9h3" stroke="rgba(0,24,38,0.58)" stroke-width="0.9" stroke-linecap="round"/></svg><span style="font-size:11px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif;">Stimulant Trial History</span></div>
-              <div style="display:inline-flex; align-items:center; gap:5px; background:#f9fafb; border:1px solid #e4eaec; border-radius:4px; padding:4px 8px;"><svg width="11" height="13" viewBox="0 0 11 13" fill="none"><path d="M6.5 1H2a1 1 0 00-1 1v9a1 1 0 001 1h7a1 1 0 001-1V4.5L6.5 1z" stroke="rgba(0,24,38,0.58)" stroke-width="1.1" stroke-linejoin="round"/><path d="M6.5 1v3.5H10" stroke="rgba(0,24,38,0.58)" stroke-width="1.1" stroke-linejoin="round"/><path d="M3 7h5M3 9h3" stroke="rgba(0,24,38,0.58)" stroke-width="0.9" stroke-linecap="round"/></svg><span style="font-size:11px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif;">Provider Notes - 02/10/2026</span></div>
             </div>
           </div>
 
@@ -693,52 +696,72 @@
       <div id="agent-content-analyzing" style="display:none; flex:1; min-height:0; overflow:hidden; flex-direction:row;">
 
         <!-- Left: Progress steps -->
-        <div style="flex:1; overflow-y:auto; min-height:0; padding:20px 24px; display:flex; flex-direction:column; gap:18px; border-right:1px solid #e4eaec;">
+        <div style="flex:1; overflow-y:auto; min-height:0; padding:20px 24px; display:flex; flex-direction:column; border-right:1px solid #e4eaec;">
 
-          <div style="display:flex; align-items:flex-start; gap:12px;">
-            <div class="agent-spinner" style="width:20px; height:20px; margin-top:3px;"></div>
+          <!-- Agent status header -->
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+            <div class="agent-spinner" style="width:16px; height:16px; flex-shrink:0;"></div>
             <div>
-              <p style="font-size:15px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif; margin:0 0 4px;">Appeal Agent is analyzing this denial</p>
-              <p style="font-size:12px; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0; line-height:1.6;">Typically ready in 1–2 minutes. You'll be notified when your appeal is ready for review.</p>
+              <p style="font-size:14px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif; margin:0 0 2px;">Appeal Agent is analyzing this denial</p>
+              <p style="font-size:12px; color:rgba(0,24,38,0.50); font-family:'Open Sans',sans-serif; margin:0;">Typically ready in 1–2 minutes.</p>
             </div>
           </div>
 
+          <!-- Overall progress -->
+          <div style="margin-bottom:22px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:7px;">
+              <span style="font-size:11px; font-weight:600; color:rgba(0,24,38,0.42); font-family:'Open Sans',sans-serif; letter-spacing:0.04em; text-transform:uppercase;">Step 3 of 6</span>
+              <span style="font-size:11px; color:rgba(0,24,38,0.32); font-family:'Open Sans',sans-serif;">2 steps complete</span>
+            </div>
+            <div style="height:4px; background:#e4eaec; border-radius:2px; overflow:hidden;">
+              <div style="width:38%; height:100%; background:#0394ce; border-radius:2px;"></div>
+            </div>
+          </div>
+
+          <!-- Step list -->
           <div style="display:flex; flex-direction:column;">
 
-            <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 0; border-bottom:1px solid #f0f3f4;">
-              <div style="width:22px; height:22px; border-radius:50%; background:#c5f1cf; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;">
-                <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#176325" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <!-- Completed 1 -->
+            <div style="display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #f0f3f4;">
+              <svg width="13" height="10" viewBox="0 0 13 10" fill="none" style="flex-shrink:0;">
+                <path d="M1.5 5l3.5 3.5 6.5-8" stroke="#72a882" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span style="font-size:13px; color:rgba(0,24,38,0.45); font-family:'Open Sans',sans-serif;">Denial reason identified</span>
+            </div>
+
+            <!-- Completed 2 -->
+            <div style="display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #f0f3f4;">
+              <svg width="13" height="10" viewBox="0 0 13 10" fill="none" style="flex-shrink:0;">
+                <path d="M1.5 5l3.5 3.5 6.5-8" stroke="#72a882" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span style="font-size:13px; color:rgba(0,24,38,0.45); font-family:'Open Sans',sans-serif;">Patient chart accessed <span style="color:rgba(0,24,38,0.28); font-size:12px;">· 42 records</span></span>
+            </div>
+
+            <!-- Active step 3 -->
+            <div style="border-left:3px solid #0394ce; background:rgba(3,148,206,0.04); padding:13px 0 14px 12px; border-bottom:1px solid rgba(3,148,206,0.12); border-radius:0 3px 3px 0;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:9px;">
+                <span style="width:7px; height:7px; border-radius:50%; background:#0394ce; display:inline-block; flex-shrink:0; animation:agent-pulse 2s ease-in-out infinite;"></span>
+                <span style="font-size:13px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif;">Reviewing dermatology notes and prior treatment history</span>
               </div>
-              <div><p style="font-size:13px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif; margin:0 0 2px;">Denial reason identified</p><p style="font-size:12px; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0; line-height:1.5;">&ldquo;Inadequate documentation of prior topical corticosteroid therapy&rdquo;</p></div>
-            </div>
-
-            <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 0; border-bottom:1px solid #f0f3f4;">
-              <div style="width:22px; height:22px; border-radius:50%; background:#c5f1cf; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;">
-                <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#176325" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div style="height:3px; background:#cce6f5; border-radius:2px; overflow:hidden; margin-left:15px; margin-bottom:9px; position:relative;">
+                <div style="position:absolute; top:0; left:0; height:100%; width:35%; background:#0394ce; border-radius:2px; animation:agent-shimmer 1.8s cubic-bezier(0.4,0,0.6,1) infinite;"></div>
               </div>
-              <div><p style="font-size:13px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif; margin:0 0 2px;">Patient chart accessed</p><p style="font-size:12px; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0; line-height:1.5;">42 records from Apr 2025 – Apr 2026</p></div>
+              <p style="font-size:12px; color:rgba(3,148,206,0.85); font-family:'Open Sans',sans-serif; margin:0 0 0 15px; line-height:1.5;">Reading 42 dermatology notes from Apr 2025 – Apr 2026...</p>
             </div>
 
-            <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 0; border-bottom:1px solid #f0f3f4;">
-              <div style="width:22px; height:22px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;">
-                <div class="agent-spinner" style="width:18px; height:18px;"></div>
-              </div>
-              <div><p style="font-size:13px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif; margin:0 0 2px;">Reviewing dermatology notes and prior treatment history</p><p style="font-size:12px; color:#0394ce; font-family:'Open Sans',sans-serif; margin:0;">In progress...</p></div>
+            <!-- Pending 4 -->
+            <div style="padding:9px 0 9px 22px; border-bottom:1px solid #f0f3f4;">
+              <span style="font-size:12px; color:rgba(0,24,38,0.27); font-family:'Open Sans',sans-serif; line-height:1.5; display:block;">Cross-referencing UnitedHealthcare formulary step therapy requirements</span>
             </div>
 
-            <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 0; border-bottom:1px solid #f0f3f4;">
-              <div style="width:22px; height:22px; border-radius:50%; border:1.5px solid #cdd7db; background:white; flex-shrink:0; margin-top:1px;"></div>
-              <div><p style="font-size:13px; color:rgba(0,24,38,0.45); font-family:'Open Sans',sans-serif; margin:0;">Cross-referencing UnitedHealthcare formulary step therapy requirements</p></div>
+            <!-- Pending 5 -->
+            <div style="padding:9px 0 9px 22px; border-bottom:1px solid #f0f3f4;">
+              <span style="font-size:12px; color:rgba(0,24,38,0.27); font-family:'Open Sans',sans-serif; line-height:1.5; display:block;">Drafting appeal letter</span>
             </div>
 
-            <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 0; border-bottom:1px solid #f0f3f4;">
-              <div style="width:22px; height:22px; border-radius:50%; border:1.5px solid #cdd7db; background:white; flex-shrink:0; margin-top:1px;"></div>
-              <div><p style="font-size:13px; color:rgba(0,24,38,0.45); font-family:'Open Sans',sans-serif; margin:0;">Drafting appeal letter</p></div>
-            </div>
-
-            <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 0;">
-              <div style="width:22px; height:22px; border-radius:50%; border:1.5px solid #cdd7db; background:white; flex-shrink:0; margin-top:1px;"></div>
-              <div><p style="font-size:13px; color:rgba(0,24,38,0.45); font-family:'Open Sans',sans-serif; margin:0;">Identifying supporting clinical documents</p></div>
+            <!-- Pending 6 -->
+            <div style="padding:9px 0 9px 22px;">
+              <span style="font-size:12px; color:rgba(0,24,38,0.27); font-family:'Open Sans',sans-serif; line-height:1.5; display:block;">Identifying supporting clinical documents</span>
             </div>
 
           </div>
@@ -788,9 +811,65 @@
       </div>
 
       <!-- Footer: Analyzing -->
-      <div id="agent-footer-analyzing" style="display:none; border-top:1px solid #e4eaec; padding:16px; align-items:center; gap:8px; flex-shrink:0;">
-        <button style="background:#0394ce; color:white; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 12px; cursor:pointer; white-space:nowrap;">Notify Me When Ready</button>
-        <button style="background:#e4eaec; color:#253a40; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 12px; cursor:pointer; white-space:nowrap;">Cancel Agent</button>
+      <div id="agent-footer-analyzing" style="display:none; border-top:1px solid #e4eaec; padding:12px 16px; align-items:center; gap:12px; flex-shrink:0;">
+        <p style="flex:1; font-size:12px; color:rgba(0,24,38,0.55); font-family:'Open Sans',sans-serif; margin:0; line-height:1.5;">Your appeal draft will be ready in the Prior Auth queue when complete — safe to close this window.</p>
+        <button onclick="simulateAgentError()" style="background:transparent; color:rgba(0,24,38,0.35); font-size:11px; font-family:'Open Sans',sans-serif; border:none; cursor:pointer; white-space:nowrap; text-decoration:underline; padding:0;">Simulate timeout</button>
+        <button onclick="closeAgentDialog()" style="background:#0394ce; color:white; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 14px; cursor:pointer; white-space:nowrap;">Close</button>
+      </div>
+
+      <!-- ── Content: Error ── -->
+      <div id="agent-content-error" style="display:none; flex:1; min-height:0; overflow:hidden; flex-direction:row;">
+
+        <!-- Left: Error message + recovery actions -->
+        <div style="flex:1; overflow-y:auto; min-height:0; padding:32px 28px; display:flex; flex-direction:column; gap:20px; border-right:1px solid #e4eaec;">
+
+          <div style="display:flex; align-items:flex-start; gap:14px;">
+            <div style="width:40px; height:40px; border-radius:50%; background:#fee1e5; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px;">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <path d="M10 3L18.5 17H1.5L10 3Z" stroke="#ac0116" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M10 9v4" stroke="#ac0116" stroke-width="1.6" stroke-linecap="round"/>
+                <circle cx="10" cy="15" r="0.9" fill="#ac0116"/>
+              </svg>
+            </div>
+            <div>
+              <p style="font-size:16px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif; margin:0 0 8px;">The agent couldn't complete the appeal</p>
+              <p style="font-size:13px; color:rgba(0,24,38,0.65); font-family:'Open Sans',sans-serif; margin:0 0 6px; line-height:1.65;">Something went wrong while reviewing this denial — the agent timed out before finishing. No changes were made and nothing has been submitted.</p>
+              <p style="font-size:13px; color:rgba(0,24,38,0.65); font-family:'Open Sans',sans-serif; margin:0; line-height:1.65;">You can retry and let the agent try again, or draft the appeal letter yourself using the denial details on the right.</p>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; padding-top:4px;">
+            <button onclick="retryAgentAppeal()" style="display:inline-flex; align-items:center; gap:7px; background:#0394ce; color:white; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:36px; padding:0 16px; cursor:pointer; white-space:nowrap;">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 8a6 6 0 106-6H6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 4.5L2 8l3.5.5" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Retry Agent
+            </button>
+            <button onclick="closeAgentDialog()" style="display:inline-flex; align-items:center; gap:7px; background:#e4eaec; color:#253a40; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:36px; padding:0 14px; cursor:pointer; white-space:nowrap;">
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M9.5 1.5l3 3L4 13H1v-3L9.5 1.5Z" stroke="#253a40" stroke-width="1.3" stroke-linejoin="round"/></svg>
+              Draft Appeal Manually
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Right: Denial details (same as analyzing state) -->
+        <div style="width:256px; overflow-y:auto; min-height:0; padding:14px; display:flex; flex-direction:column; gap:12px; flex-shrink:0;">
+          <div style="border:1px solid #e4eaec; border-radius:4px; overflow:hidden;">
+            <div style="background:#f0f3f4; padding:9px 12px; border-bottom:1px solid #e4eaec;">
+              <p style="font-size:12px; font-weight:600; color:#253a40; font-family:'Open Sans',sans-serif; margin:0;">Denial Details</p>
+            </div>
+            <div style="padding:10px 12px; display:flex; flex-direction:column; gap:8px;">
+              <div><p style="font-size:10px; font-weight:600; color:#6d7b83; font-family:'Open Sans',sans-serif; margin:0 0 2px; letter-spacing:0.04em;">DENIAL DATE</p><p style="font-size:13px; color:#142125; font-family:'Open Sans',sans-serif; margin:0;">April 28, 2026</p></div>
+              <div><p style="font-size:10px; font-weight:600; color:#6d7b83; font-family:'Open Sans',sans-serif; margin:0 0 2px; letter-spacing:0.04em;">DENIAL REASON</p><p style="font-size:13px; color:#142125; font-family:'Open Sans',sans-serif; margin:0; line-height:1.5;">Inadequate documentation of prior topical corticosteroid therapy</p></div>
+              <div><p style="font-size:10px; font-weight:600; color:#6d7b83; font-family:'Open Sans',sans-serif; margin:0 0 2px; letter-spacing:0.04em;">DENIAL CODE</p><p style="font-size:13px; color:#142125; font-family:'Open Sans',sans-serif; margin:0;">C019</p></div>
+              <div><p style="font-size:10px; font-weight:600; color:#6d7b83; font-family:'Open Sans',sans-serif; margin:0 0 2px; letter-spacing:0.04em;">APPEAL DEADLINE</p><p style="font-size:13px; color:#142125; font-family:'Open Sans',sans-serif; margin:0;">May 28, 2026</p></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /agent-content-error -->
+
+      <!-- Footer: Error -->
+      <div id="agent-footer-error" style="display:none; border-top:1px solid #e4eaec; padding:16px; justify-content:flex-end; align-items:center; gap:8px; flex-shrink:0;">
         <button onclick="closeAgentDialog()" style="background:#e4eaec; color:#253a40; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 12px; cursor:pointer; white-space:nowrap;">Close</button>
       </div>
 
@@ -828,9 +907,11 @@
       document.getElementById('agent-content-ready').style.display = isReady ? 'flex' : 'none';
       document.getElementById('agent-content-analyzing').style.display = isAnalyzing ? 'flex' : 'none';
       document.getElementById('agent-content-submitted').style.display = 'none';
+      document.getElementById('agent-content-error').style.display = 'none';
       document.getElementById('agent-footer-ready').style.display = isReady ? 'flex' : 'none';
       document.getElementById('agent-footer-analyzing').style.display = isAnalyzing ? 'flex' : 'none';
       document.getElementById('agent-footer-submitted').style.display = 'none';
+      document.getElementById('agent-footer-error').style.display = 'none';
       document.getElementById('agent-dialog-box').style.width = isReady ? '920px' : '820px';
       document.getElementById('agent-dialog-overlay').style.display = 'flex';
     }
@@ -845,6 +926,28 @@
       document.getElementById('agent-content-submitted').style.display = 'flex';
       document.getElementById('agent-footer-submitted').style.display = 'flex';
       document.getElementById('agent-dialog-box').style.width = '580px';
+    }
+
+    function simulateAgentError() {
+      document.getElementById('agent-content-analyzing').style.display = 'none';
+      document.getElementById('agent-footer-analyzing').style.display = 'none';
+      document.getElementById('agent-content-error').style.display = 'flex';
+      document.getElementById('agent-footer-error').style.display = 'flex';
+    }
+
+    function retryAgentAppeal() {
+      document.getElementById('agent-content-error').style.display = 'none';
+      document.getElementById('agent-footer-error').style.display = 'none';
+      document.getElementById('agent-content-analyzing').style.display = 'flex';
+      document.getElementById('agent-footer-analyzing').style.display = 'flex';
+    }
+
+    function toggleAgentSubmittedDetails() {
+      const body = document.getElementById('agent-submitted-details-body');
+      const chevron = document.getElementById('agent-submitted-chevron');
+      const open = body.style.display !== 'none';
+      body.style.display = open ? 'none' : 'block';
+      chevron.style.transform = open ? '' : 'rotate(180deg)';
     }
 
     document.getElementById('agent-dialog-overlay').addEventListener('click', function(e) {
