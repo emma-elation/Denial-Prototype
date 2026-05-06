@@ -608,32 +608,56 @@
         <!-- Left col: Appeal draft -->
         <div style="flex:1; overflow-y:auto; min-height:0; padding:16px; display:flex; flex-direction:column; gap:12px; border-right:1px solid #e4eaec;">
 
-          <!-- Draft header -->
-          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-            <span style="font-size:14px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif;">Appeal Draft</span>
-            <div style="display:inline-flex; align-items:center; gap:5px; background:#f0f5ff; border:1px solid #c8dcff; border-radius:100px; padding:3px 9px;">
-              <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M7 0.5C7 3.99 4.49 6.5 1 6.5C4.49 6.5 7 9.01 7 12.5C7 9.01 9.51 6.5 13 6.5C9.51 6.5 7 3.99 7 0.5Z" fill="#296bbc"/></svg>
-              <span style="font-size:11px; font-weight:600; color:#1a4a8a; font-family:'Open Sans',sans-serif; white-space:nowrap;">Prepared by Appeal Agent · 3 min ago</span>
-            </div>
-          </div>
+          <!-- Read-only draft view -->
+          <div id="agent-draft-readonly" style="display:flex; flex-direction:column; gap:12px;">
 
-          <!-- Appeal letter body -->
-          <div style="border:1px solid #e4eaec; border-radius:4px; padding:18px 22px; background:#fafafa; font-size:13px; color:#2d3f46; font-family:'Open Sans',sans-serif; line-height:1.75;">
-            <p style="margin:0 0 14px; color:#8398a0; font-size:12px;">April 8, 2026</p>
-            <p style="margin:0 0 4px; font-weight:600;">Re: Prior Authorization Appeal Request</p>
-            <p style="margin:0 0 2px;">Patient: Margaret Holloway &nbsp;|&nbsp; DOB: March 14, 1958</p>
-            <p style="margin:0 0 2px;">Insurance ID: AET-558219-H &nbsp;|&nbsp; Ref: AUTH-2024-8834721</p>
-            <p style="margin:0 0 20px;">Medication: Lisdexamfetamine dimesylate (Vyvanse) 50mg</p>
-            <p style="margin:0 0 12px;">Dear Aetna Prior Authorization Review Committee,</p>
-            <p style="margin:0 0 12px;">We are formally appealing the denial of prior authorization for lisdexamfetamine (Vyvanse) 50mg. The denial cites unmet step therapy requirements; however, Ms. Holloway has a documented history of two prior stimulant trials, both discontinued due to treatment-limiting adverse effects.</p>
-            <p style="margin:0 0 8px; font-weight:600;">Step Therapy Documentation</p>
-            <p style="margin:0 0 6px; padding-left:14px;"><strong>1. Methylphenidate HCl (Ritalin) 20mg</strong> — June 2022 – December 2022. Discontinued due to persistent insomnia and hypertension (BP 148/92 mmHg). Office visit notes, December 5, 2022.</p>
-            <p style="margin:0 0 14px; padding-left:14px;"><strong>2. Amphetamine salts (Adderall XR) 10mg</strong> — January – April 2023. Discontinued after EKG confirmed palpitations and resting tachycardia (HR 108 bpm). Cardiology note, March 14, 2023.</p>
-            <p style="margin:0 0 8px; font-weight:600;">Clinical Justification</p>
-            <p style="margin:0 0 14px;">Following failure of two distinct stimulant classes, Ms. Holloway was initiated on lisdexamfetamine (Vyvanse) 50mg with significant improvement: 47% reduction in ADHD symptom severity (Conners' Scale: 34 → 18) and a well-tolerated cardiovascular profile (BP 124/80 mmHg, HR 74 bpm, February 28, 2026). Reverting to previously trialed agents presents documented cardiovascular risk and is not clinically appropriate for this patient.</p>
-            <p style="margin:0 0 4px;">Respectfully submitted,</p>
-            <p style="margin:0;">Staff One, MD &nbsp;·&nbsp; Elation Health Practice</p>
-          </div>
+            <!-- Draft header -->
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <span style="font-size:14px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif;">Appeal Draft</span>
+              <div style="display:inline-flex; align-items:center; gap:5px; background:#f0f5ff; border:1px solid #c8dcff; border-radius:100px; padding:3px 9px;">
+                <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M7 0.5C7 3.99 4.49 6.5 1 6.5C4.49 6.5 7 9.01 7 12.5C7 9.01 9.51 6.5 13 6.5C9.51 6.5 7 3.99 7 0.5Z" fill="#296bbc"/></svg>
+                <span style="font-size:11px; font-weight:600; color:#1a4a8a; font-family:'Open Sans',sans-serif; white-space:nowrap;">Prepared by Appeal Agent · 3 min ago</span>
+              </div>
+            </div>
+
+            <!-- Appeal letter body -->
+            <div style="border:1px solid #e4eaec; border-radius:4px; padding:18px 22px; background:#fafafa; font-size:13px; color:#2d3f46; font-family:'Open Sans',sans-serif; line-height:1.75;">
+              <p style="margin:0 0 12px;">Dear Aetna Prior Authorization Review Committee,</p>
+              <p style="margin:0 0 12px;">We are formally appealing the denial of prior authorization for lisdexamfetamine (Vyvanse) 50mg. The denial cites unmet step therapy requirements; however, Ms. Holloway has a documented history of two prior stimulant trials, both discontinued due to treatment-limiting adverse effects.</p>
+              <p style="margin:0 0 8px; font-weight:600;">Step Therapy Documentation</p>
+              <p style="margin:0 0 6px; padding-left:14px;"><strong>1. Methylphenidate HCl (Ritalin) 20mg</strong> — June 2022 – December 2022. Discontinued due to persistent insomnia and hypertension (BP 148/92 mmHg). Office visit notes, December 5, 2022.</p>
+              <p style="margin:0 0 14px; padding-left:14px;"><strong>2. Amphetamine salts (Adderall XR) 10mg</strong> — January – April 2023. Discontinued after EKG confirmed palpitations and resting tachycardia (HR 108 bpm). Cardiology note, March 14, 2023.</p>
+              <p style="margin:0 0 8px; font-weight:600;">Clinical Justification</p>
+              <p style="margin:0 0 14px;">Following failure of two distinct stimulant classes, Ms. Holloway was initiated on lisdexamfetamine (Vyvanse) 50mg with significant improvement: 47% reduction in ADHD symptom severity (Conners' Scale: 34 → 18) and a well-tolerated cardiovascular profile (BP 124/80 mmHg, HR 74 bpm, February 28, 2026). Reverting to previously trialed agents presents documented cardiovascular risk and is not clinically appropriate for this patient.</p>
+              <p style="margin:0 0 4px;">Respectfully submitted,</p>
+              <p style="margin:0;">Staff One, MD &nbsp;·&nbsp; Elation Health Practice</p>
+            </div>
+
+          </div><!-- /agent-draft-readonly -->
+
+          <!-- Edit draft view -->
+          <div id="agent-draft-editable" style="display:none; flex-direction:column; gap:10px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:14px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif;">Edit Appeal Draft</span>
+              <span style="font-size:12px; color:rgba(0,24,38,0.45); font-family:'Open Sans',sans-serif;">Changes are saved when you click Save Draft.</span>
+            </div>
+            <textarea id="agent-draft-textarea" style="width:100%; min-height:340px; border:1px solid #c8d4da; border-radius:4px; padding:16px 18px; font-size:13px; font-family:'Open Sans',sans-serif; color:#2d3f46; line-height:1.75; resize:vertical; outline:none; background:white; box-sizing:border-box;">Dear Aetna Prior Authorization Review Committee,
+
+We are formally appealing the denial of prior authorization for lisdexamfetamine (Vyvanse) 50mg. The denial cites unmet step therapy requirements; however, Ms. Holloway has a documented history of two prior stimulant trials, both discontinued due to treatment-limiting adverse effects.
+
+Step Therapy Documentation
+
+1. Methylphenidate HCl (Ritalin) 20mg — June 2022 – December 2022. Discontinued due to persistent insomnia and hypertension (BP 148/92 mmHg). Office visit notes, December 5, 2022.
+
+2. Amphetamine salts (Adderall XR) 10mg — January – April 2023. Discontinued after EKG confirmed palpitations and resting tachycardia (HR 108 bpm). Cardiology note, March 14, 2023.
+
+Clinical Justification
+
+Following failure of two distinct stimulant classes, Ms. Holloway was initiated on lisdexamfetamine (Vyvanse) 50mg with significant improvement: 47% reduction in ADHD symptom severity (Conners' Scale: 34 → 18) and a well-tolerated cardiovascular profile (BP 124/80 mmHg, HR 74 bpm, February 28, 2026). Reverting to previously trialed agents presents documented cardiovascular risk and is not clinically appropriate for this patient.
+
+Respectfully submitted,
+Staff One, MD · Elation Health Practice</textarea>
+          </div><!-- /agent-draft-editable -->
 
           <!-- Attachments -->
           <div>
@@ -699,22 +723,12 @@
         <div style="flex:1; overflow-y:auto; min-height:0; padding:20px 24px; display:flex; flex-direction:column; border-right:1px solid #e4eaec;">
 
           <!-- Agent status header -->
-          <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
-            <div class="agent-spinner" style="width:16px; height:16px; flex-shrink:0;"></div>
+          <div style="display:flex; align-items:flex-start; gap:10px; margin-bottom:20px;">
+            <div class="agent-spinner" style="width:16px; height:16px; flex-shrink:0; margin-top:3px;"></div>
             <div>
-              <p style="font-size:14px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif; margin:0 0 2px;">Appeal Agent is analyzing this denial</p>
-              <p style="font-size:12px; color:rgba(0,24,38,0.50); font-family:'Open Sans',sans-serif; margin:0;">Typically ready in 1–2 minutes.</p>
-            </div>
-          </div>
-
-          <!-- Overall progress -->
-          <div style="margin-bottom:22px;">
-            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:7px;">
-              <span style="font-size:11px; font-weight:600; color:rgba(0,24,38,0.42); font-family:'Open Sans',sans-serif; letter-spacing:0.04em; text-transform:uppercase;">Step 3 of 6</span>
-              <span style="font-size:11px; color:rgba(0,24,38,0.32); font-family:'Open Sans',sans-serif;">2 steps complete</span>
-            </div>
-            <div style="height:4px; background:#e4eaec; border-radius:2px; overflow:hidden;">
-              <div style="width:38%; height:100%; background:#0394ce; border-radius:2px;"></div>
+              <p style="font-size:14px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif; margin:0 0 3px;">Appeal Agent is analyzing this denial</p>
+              <p style="font-size:12px; color:rgba(0,24,38,0.50); font-family:'Open Sans',sans-serif; margin:0 0 2px;">Typically ready in 1–2 minutes.</p>
+              <p style="font-size:12px; color:rgba(0,24,38,0.45); font-family:'Open Sans',sans-serif; margin:0;">Your appeal draft will be ready in the Prior Auth queue when complete — safe to close this window.</p>
             </div>
           </div>
 
@@ -738,13 +752,10 @@
             </div>
 
             <!-- Active step 3 -->
-            <div style="border-left:3px solid #0394ce; background:rgba(3,148,206,0.04); padding:13px 0 14px 12px; border-bottom:1px solid rgba(3,148,206,0.12); border-radius:0 3px 3px 0;">
+            <div style="background:rgba(3,148,206,0.04); padding:13px 10px 14px; border-bottom:1px solid rgba(3,148,206,0.12); border-radius:3px;">
               <div style="display:flex; align-items:center; gap:8px; margin-bottom:9px;">
                 <span style="width:7px; height:7px; border-radius:50%; background:#0394ce; display:inline-block; flex-shrink:0; animation:agent-pulse 2s ease-in-out infinite;"></span>
                 <span style="font-size:13px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif;">Reviewing dermatology notes and prior treatment history</span>
-              </div>
-              <div style="height:3px; background:#cce6f5; border-radius:2px; overflow:hidden; margin-left:15px; margin-bottom:9px; position:relative;">
-                <div style="position:absolute; top:0; left:0; height:100%; width:35%; background:#0394ce; border-radius:2px; animation:agent-shimmer 1.8s cubic-bezier(0.4,0,0.6,1) infinite;"></div>
               </div>
               <p style="font-size:12px; color:rgba(3,148,206,0.85); font-family:'Open Sans',sans-serif; margin:0 0 0 15px; line-height:1.5;">Reading 42 dermatology notes from Apr 2025 – Apr 2026...</p>
             </div>
@@ -799,22 +810,138 @@
         </div>
       </div>
 
+      <!-- ── Content: Rejected / Manual Appeal ── -->
+      <div id="agent-content-rejected" style="display:none; flex:1; min-height:0; overflow:hidden; flex-direction:row;">
+
+        <!-- Left col: Manual appeal form -->
+        <div style="flex:1; overflow-y:auto; min-height:0; padding:16px; display:flex; flex-direction:column; gap:0; border-right:1px solid #e4eaec;">
+
+          <!-- Agentic appeal callout -->
+          <div style="border:1px solid #c8dcff; border-radius:4px; background:#f0f5ff; padding:12px 14px; display:flex; align-items:flex-start; gap:10px; margin-bottom:18px; flex-shrink:0;">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="flex-shrink:0; margin-top:2px;"><path d="M7 0.5C7 3.99 4.49 6.5 1 6.5C4.49 6.5 7 9.01 7 12.5C7 9.01 9.51 6.5 13 6.5C9.51 6.5 7 3.99 7 0.5Z" fill="#296bbc"/></svg>
+            <div style="flex:1;">
+              <p style="font-size:13px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif; margin:0 0 3px;">Draft with Appeal Agent</p>
+              <p style="font-size:12px; color:rgba(0,24,38,0.65); font-family:'Open Sans',sans-serif; margin:0 0 10px; line-height:1.5;">The agent can analyze this denial and prepare a ready-to-review appeal letter in 1–2 minutes.</p>
+              <button onclick="rerunAgentAppeal()" style="background:#0394ce; color:white; font-size:12px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:28px; padding:0 12px; cursor:pointer; white-space:nowrap;">
+                Run Appeal Agent
+              </button>
+            </div>
+          </div>
+
+          <!-- Clinical Justification -->
+          <div style="padding-bottom:16px; border-bottom:1px solid #f0f3f4; margin-bottom:16px;">
+            <p style="font-size:14px; font-weight:600; color:#253a40; font-family:'Open Sans',sans-serif; margin:0 0 5px;">Clinical Justification for Appeal</p>
+            <p style="font-size:14px; color:#253a40; font-family:'Open Sans',sans-serif; margin:0 0 10px; line-height:1.6;">Provide clinical justification and supporting documents to dispute this denial. Appeals must be submitted by <strong>April 15, 2026</strong>.</p>
+            <textarea style="width:100%; height:100px; border:1px solid #cdd7db; border-radius:4px; padding:10px; font-size:14px; font-family:'Open Sans',sans-serif; font-style:italic; color:rgba(0,24,38,0.55); resize:none; outline:none; box-sizing:border-box; line-height:1.5;" placeholder="Add context for the payer manually here..."></textarea>
+          </div>
+
+          <!-- Add Attachments -->
+          <div style="padding-bottom:16px; border-bottom:1px solid #f0f3f4; margin-bottom:16px;">
+            <p style="font-size:14px; font-weight:600; color:#253a40; font-family:'Open Sans',sans-serif; margin:0 0 8px;">Add Attachments</p>
+            <div style="display:flex; flex-direction:column; gap:5px; margin-bottom:8px;">
+              <div style="display:inline-flex; align-items:center; justify-content:space-between; background:#ebf4ff; border:1px dashed #59a0f8; border-radius:4px; padding:5px 10px; max-width:380px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <svg width="11" height="13" viewBox="0 0 11 13" fill="none"><path d="M6.5 1H2a1 1 0 00-1 1v9a1 1 0 001 1h7a1 1 0 001-1V4.5L6.5 1z" stroke="#253a40" stroke-width="1.1" stroke-linejoin="round"/><path d="M6.5 1v3.5H10" stroke="#253a40" stroke-width="1.1" stroke-linejoin="round"/></svg>
+                  <span style="font-size:11px; font-weight:600; color:#253a40; font-family:'Open Sans',sans-serif;">ADHD Assessment - 01/15/2026.pdf</span>
+                </div>
+                <svg width="10" height="10" viewBox="0 0 12 12" fill="none" style="cursor:pointer; flex-shrink:0; margin-left:8px;"><path d="M9 3L3 9M3 3l6 6" stroke="#657981" stroke-width="1.4" stroke-linecap="round"/></svg>
+              </div>
+              <div style="display:inline-flex; align-items:center; justify-content:space-between; background:#ebf4ff; border:1px dashed #59a0f8; border-radius:4px; padding:5px 10px; max-width:380px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <svg width="11" height="13" viewBox="0 0 11 13" fill="none"><path d="M6.5 1H2a1 1 0 00-1 1v9a1 1 0 001 1h7a1 1 0 001-1V4.5L6.5 1z" stroke="#253a40" stroke-width="1.1" stroke-linejoin="round"/><path d="M6.5 1v3.5H10" stroke="#253a40" stroke-width="1.1" stroke-linejoin="round"/></svg>
+                  <span style="font-size:11px; font-weight:600; color:#253a40; font-family:'Open Sans',sans-serif;">Stimulant Trial History.pdf</span>
+                </div>
+                <svg width="10" height="10" viewBox="0 0 12 12" fill="none" style="cursor:pointer; flex-shrink:0; margin-left:8px;"><path d="M9 3L3 9M3 3l6 6" stroke="#657981" stroke-width="1.4" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button style="background:#e4eaec; color:#253a40; font-size:12px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:28px; padding:0 10px; cursor:pointer; white-space:nowrap;">Select From Computer</button>
+              <button style="background:#e4eaec; color:#253a40; font-size:12px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:28px; padding:0 10px; cursor:pointer; white-space:nowrap;">Select From Patient Chart</button>
+            </div>
+          </div>
+
+          <!-- Request Additional Information -->
+          <div>
+            <p style="font-size:14px; font-weight:600; color:#253a40; font-family:'Open Sans',sans-serif; margin:0 0 5px;">Request Additional Information</p>
+            <p style="font-size:14px; color:#253a40; font-family:'Open Sans',sans-serif; margin:0 0 8px; line-height:1.6;">If additional information is needed from the payer, specify below.</p>
+            <textarea style="width:100%; height:72px; border:1px solid #cdd7db; border-radius:4px; padding:10px; font-size:14px; font-family:'Open Sans',sans-serif; color:#253a40; resize:none; outline:none; box-sizing:border-box;"></textarea>
+          </div>
+
+        </div><!-- /left col -->
+
+        <!-- Right col: Denial Details -->
+        <div style="width:280px; overflow-y:auto; min-height:0; padding:14px; display:flex; flex-direction:column; gap:12px; flex-shrink:0;">
+
+          <!-- Denial Details card (richer, matching Figma) -->
+          <div style="border:1px solid #e4eaec; border-radius:4px; overflow:hidden;">
+            <div style="background:#f0f3f4; padding:9px 16px; border-bottom:1px solid #e4eaec;">
+              <p style="font-size:12px; font-weight:600; color:#253a40; font-family:'Open Sans',sans-serif; margin:0;">Denial Details</p>
+            </div>
+            <div style="padding:14px 16px; display:flex; flex-direction:column; gap:16px;">
+              <div>
+                <p style="font-size:11px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0 0 2px;">Reason</p>
+                <p style="font-size:14px; color:#142125; font-family:'Open Sans',sans-serif; margin:0; line-height:1.6;">Step therapy requirement not met</p>
+              </div>
+              <div>
+                <p style="font-size:11px; font-weight:600; color:#6d7b83; font-family:'Open Sans',sans-serif; margin:0 0 2px;">Payer Notes</p>
+                <p style="font-size:14px; color:#253a40; font-family:'Open Sans',sans-serif; margin:0; line-height:1.6;">Patient has not documented a prior trial of methylphenidate (e.g., Ritalin) before initiating lisdexamfetamine. Aetna requires documented failure of at least one preferred first-line stimulant.</p>
+              </div>
+              <div>
+                <p style="font-size:11px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0 0 2px;">Reviewed By</p>
+                <p style="font-size:14px; color:#142125; font-family:'Open Sans',sans-serif; margin:0; line-height:1.6;">Dr. Sarah Mitchell, PharmD</p>
+              </div>
+              <div>
+                <p style="font-size:11px; font-weight:600; color:rgba(0,24,38,0.58); font-family:'Open Sans',sans-serif; margin:0 0 2px;">Appeal Deadline</p>
+                <p style="font-size:14px; font-weight:600; color:#142125; font-family:'Open Sans',sans-serif; margin:0;">April 15, 2026</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- View Submitted Details accordion -->
+          <div style="border:1px solid #e4eaec; border-radius:4px; overflow:hidden;">
+            <button onclick="toggleRejectedSubmittedDetails()" style="width:100%; background:#f0f3f4; border:none; cursor:pointer; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; font-family:'Open Sans',sans-serif;">
+              <span style="font-size:12px; font-weight:600; color:#253a40;">View Submitted Details</span>
+              <svg id="rejected-submitted-chevron" width="12" height="8" viewBox="0 0 12 8" fill="none" style="transition:transform 0.2s; flex-shrink:0;"><path d="M1 1.5l5 5 5-5" stroke="#253a40" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div id="rejected-submitted-details-body" style="display:none; border-top:1px solid #e4eaec; background:white; padding:12px; font-size:13px; color:#253a40; font-family:'Open Sans',sans-serif; line-height:1.6;">
+              <p style="margin:0 0 6px; font-weight:600; font-size:11px; color:#6d7b83; letter-spacing:0.04em;">SUBMITTED ANSWERS</p>
+              <p style="margin:0 0 4px;"><strong>Diagnosis:</strong> ADHD, Combined Type (F90.2)</p>
+              <p style="margin:0 0 4px;"><strong>Prior stimulant trials:</strong> None documented at time of submission</p>
+              <p style="margin:0;"><strong>Justification:</strong> Cardiovascular comorbidities; prescriber recommends Vyvanse for smoother profile</p>
+            </div>
+          </div>
+
+        </div><!-- /right col -->
+      </div><!-- /agent-content-rejected -->
+
       <!-- Footer: Appeal Ready -->
       <div id="agent-footer-ready" style="display:none; border-top:1px solid #e4eaec; padding:16px; align-items:center; gap:8px; flex-shrink:0;">
         <button onclick="approveAndSubmitAppeal()" style="background:#0394ce; color:white; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 14px; cursor:pointer; white-space:nowrap; display:inline-flex; align-items:center; gap:6px;">
           <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M7 0.5C7 3.99 4.49 6.5 1 6.5C4.49 6.5 7 9.01 7 12.5C7 9.01 9.51 6.5 13 6.5C9.51 6.5 7 3.99 7 0.5Z" fill="white"/></svg>
           Approve &amp; Submit Appeal
         </button>
-        <button style="background:#e4eaec; color:#253a40; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 12px; cursor:pointer; white-space:nowrap;">Edit Draft</button>
-        <button style="background:#e4eaec; color:#253a40; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 12px; cursor:pointer; white-space:nowrap;">Reject / Start Over</button>
+        <button onclick="editAgentDraft()" style="background:#e4eaec; color:#253a40; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 12px; cursor:pointer; white-space:nowrap;">Edit Draft</button>
+        <button onclick="rejectAgentDraft()" style="background:#e4eaec; color:#253a40; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 12px; cursor:pointer; white-space:nowrap;">Reject / Start Over</button>
+        <button onclick="closeAgentDialog()" style="background:#e4eaec; color:#253a40; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 12px; cursor:pointer; white-space:nowrap;">Close</button>
+      </div>
+
+      <!-- Footer: Editing -->
+      <div id="agent-footer-editing" style="display:none; border-top:1px solid #e4eaec; padding:16px; align-items:center; gap:8px; flex-shrink:0;">
+        <button onclick="saveAgentDraft()" style="background:#0394ce; color:white; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 14px; cursor:pointer; white-space:nowrap;">Save Draft</button>
+        <button onclick="cancelAgentEdit()" style="background:#e4eaec; color:#253a40; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 12px; cursor:pointer; white-space:nowrap;">Cancel</button>
+      </div>
+
+      <!-- Footer: Rejected / Manual Appeal -->
+      <div id="agent-footer-rejected" style="display:none; border-top:1px solid #e4eaec; padding:16px; align-items:center; gap:8px; flex-shrink:0;">
+        <button style="background:#e4eaec; color:#253a40; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 14px; cursor:pointer; white-space:nowrap;">Submit Appeal</button>
+        <button style="background:#e4eaec; color:#253a40; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 12px; cursor:pointer; white-space:nowrap;">Acknowledge Denial</button>
         <button onclick="closeAgentDialog()" style="background:#e4eaec; color:#253a40; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 12px; cursor:pointer; white-space:nowrap;">Close</button>
       </div>
 
       <!-- Footer: Analyzing -->
-      <div id="agent-footer-analyzing" style="display:none; border-top:1px solid #e4eaec; padding:12px 16px; align-items:center; gap:12px; flex-shrink:0;">
-        <p style="flex:1; font-size:12px; color:rgba(0,24,38,0.55); font-family:'Open Sans',sans-serif; margin:0; line-height:1.5;">Your appeal draft will be ready in the Prior Auth queue when complete — safe to close this window.</p>
-        <button onclick="simulateAgentError()" style="background:transparent; color:rgba(0,24,38,0.35); font-size:11px; font-family:'Open Sans',sans-serif; border:none; cursor:pointer; white-space:nowrap; text-decoration:underline; padding:0;">Simulate timeout</button>
-        <button onclick="closeAgentDialog()" style="background:#0394ce; color:white; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 14px; cursor:pointer; white-space:nowrap;">Close</button>
+      <div id="agent-footer-analyzing" style="display:none; border-top:1px solid #e4eaec; padding:12px 16px; align-items:center; gap:8px; flex-shrink:0;">
+        <button onclick="closeAgentDialog()" style="background:#e4eaec; color:#253a40; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 14px; cursor:pointer; white-space:nowrap;">Cancel Agent</button>
+        <button onclick="closeAgentDialog()" style="background:#e4eaec; color:#253a40; font-size:14px; font-weight:600; font-family:'Open Sans',sans-serif; border:none; border-radius:4px; height:32px; padding:0 14px; cursor:pointer; white-space:nowrap;">Close</button>
       </div>
 
       <!-- ── Content: Error ── -->
@@ -928,6 +1055,53 @@
       document.getElementById('agent-dialog-box').style.width = '580px';
     }
 
+    function rejectAgentDraft() {
+      document.getElementById('agent-content-ready').style.display = 'none';
+      document.getElementById('agent-footer-ready').style.display = 'none';
+      document.getElementById('agent-draft-readonly').style.display = 'flex';
+      document.getElementById('agent-draft-editable').style.display = 'none';
+      document.getElementById('agent-content-rejected').style.display = 'flex';
+      document.getElementById('agent-footer-rejected').style.display = 'flex';
+      document.getElementById('agent-dialog-box').style.width = '860px';
+    }
+
+    function rerunAgentAppeal() {
+      document.getElementById('agent-content-rejected').style.display = 'none';
+      document.getElementById('agent-footer-rejected').style.display = 'none';
+      document.getElementById('agent-content-analyzing').style.display = 'flex';
+      document.getElementById('agent-footer-analyzing').style.display = 'flex';
+      document.getElementById('agent-dialog-box').style.width = '820px';
+    }
+
+    function toggleRejectedSubmittedDetails() {
+      const body = document.getElementById('rejected-submitted-details-body');
+      const chevron = document.getElementById('rejected-submitted-chevron');
+      const open = body.style.display !== 'none';
+      body.style.display = open ? 'none' : 'block';
+      chevron.style.transform = open ? '' : 'rotate(180deg)';
+    }
+
+    function editAgentDraft() {
+      document.getElementById('agent-draft-readonly').style.display = 'none';
+      document.getElementById('agent-draft-editable').style.display = 'flex';
+      document.getElementById('agent-footer-ready').style.display = 'none';
+      document.getElementById('agent-footer-editing').style.display = 'flex';
+    }
+
+    function saveAgentDraft() {
+      document.getElementById('agent-draft-editable').style.display = 'none';
+      document.getElementById('agent-draft-readonly').style.display = 'flex';
+      document.getElementById('agent-footer-editing').style.display = 'none';
+      document.getElementById('agent-footer-ready').style.display = 'flex';
+    }
+
+    function cancelAgentEdit() {
+      document.getElementById('agent-draft-editable').style.display = 'none';
+      document.getElementById('agent-draft-readonly').style.display = 'flex';
+      document.getElementById('agent-footer-editing').style.display = 'none';
+      document.getElementById('agent-footer-ready').style.display = 'flex';
+    }
+
     function simulateAgentError() {
       document.getElementById('agent-content-analyzing').style.display = 'none';
       document.getElementById('agent-footer-analyzing').style.display = 'none';
@@ -938,6 +1112,11 @@
     function retryAgentAppeal() {
       document.getElementById('agent-content-error').style.display = 'none';
       document.getElementById('agent-footer-error').style.display = 'none';
+      document.getElementById('agent-footer-editing').style.display = 'none';
+      document.getElementById('agent-content-rejected').style.display = 'none';
+      document.getElementById('agent-footer-rejected').style.display = 'none';
+      document.getElementById('agent-draft-readonly').style.display = 'flex';
+      document.getElementById('agent-draft-editable').style.display = 'none';
       document.getElementById('agent-content-analyzing').style.display = 'flex';
       document.getElementById('agent-footer-analyzing').style.display = 'flex';
     }
